@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文章組件模板庫</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        "noto-sans-jp": ["Noto Sans JP", "sans-serif"],
+                    },
+                    colors: {
+                        primary: "#3660FD",
+                        dark: "#303030",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        html {
+            font-family: "Noto Sans JP", sans-serif !important;
+        }
+
+        /* Demo page layout for component library */
+        .component-library {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 24px 16px 80px;
+        }
+
+        .component-library-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .component-library-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #303030;
+            letter-spacing: 0.02em;
+        }
+
+        .component-library-subtitle {
+            font-size: 12px;
+            color: rgba(48, 48, 48, 0.7);
+        }
+
+        .component-item {
+            position: relative;
+            border: 1px solid rgba(48, 48, 48, 0.12);
+            border-radius: 12px;
+            padding: 14px 88px 14px 14px;
+            background: #fff;
+            margin: 14px 0;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            padding: 0 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(48, 48, 48, 0.18);
+            background: #fff;
+            color: rgba(48, 48, 48, 0.85);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            border-color: rgba(54, 96, 253, 0.55);
+            box-shadow: 0 6px 18px rgba(54, 96, 253, 0.12);
+        }
+
+        .copy-toast {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 9999;
+            background: rgba(48, 48, 48, 0.92);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <link rel="stylesheet" href="https://www.ryoex.com/en/assets/css/components/components-templates1.css" />
+    <link rel="stylesheet" href="https://www.ryoex.com/en/assets/css/index.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <main class="ryoex-article-content article-content">
+        <div class="component-library">
+            <div class="component-library-header">
+                <div>
+                    <div class="component-library-title">文章组件模板库</div>
+                    <div class="component-library-subtitle">每个组件右侧可一键复制该组件完整 HTML</div>
+                </div>
+            </div>
+
+            <div class="component-item">
+
+                <!-- h1 -->
+                <h1>H1标题</h1>
+                <div class="ryoex-article-meta">
+                    <div class="ryoex-article-category">
+                        <img src="https://ryoex.com/en/assets/image/categorize-icon.svg" alt="カテゴリー"
+                            class="ryoex-category-icon">
+                        <a href="{{replace category.pageUrl 'index.html' ''}}" class="ryoex-cat-tag">
+                            {{category.name}}
+                        </a>
+                    </div>
+                    <div class="ryoex-article-date">
+                        <img src="https://ryoex.com/en/assets/image/news/ryoex-time.svg" class="ryoex-date-icon"
+                            alt="時間">
+                        {{date_format sys.updatedAt "yyyy-MM-dd"}}
+                    </div>
+                </div>
+
+                <div class="ryoex-info-box">
+                    <svg class="icon-info" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+                        <circle cx="8" cy="4.6" r="0.9" fill="currentColor" />
+                        <path d="M8 7v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <span>当ページに掲載されている情報は、特定の利益や成果を保証するものではありません。</span>
+                </div>
+
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- h2 -->
+                <h2>H2標題</h2>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- h3 -->
+                <h3>H3標題</h3>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- h4 -->
+                <h4>H4標題</h4>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- h5 -->
+                <h5>H5標題</h5>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 图片 -->
+                <img src="https://ryoex.com/en/assets/image/final-cta-bg.png" alt="" width="820" height="461" />
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 段落 -->
+                <p>段落內容</p>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-dot">
+                    <li>
+                        <div class="ryoex-simple-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ryoex-simple-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 内部链接 -->
+                <a href="超链接">内部链接文案</a>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 外部链接 -->
+                <a href="超链接" target="_blank" rel="nofollow noopener noreferrer">外部链接文案</a>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 目录 -->
+                <!-- TOC (Table of Contents) -->
+                <div class="ryoex-toc">
+                    <!-- Title bar -->
+                    <div class="ryoex-toc-titlebar">
+                        <img src="https://ryoex.com/en/assets/image/directory-icon.svg" alt="" class="ryoex-toc-icon">
+                        <div id="toc-title" class="ryoex-toc-title"> 目次 </div>
+                    </div>
+                    <!-- TOC list container -->
+                    <div class="ryoex-toc-list has-overflow">
+                        <!-- JavaScript will generate content here -->
+                    </div>
+                    <!-- Show more button -->
+                    <div class="ryoex-toc-more" id="toc-more-btn" style="display: none">
+                        <button onclick="toggleTocExpand()" class="ryoex-btn-outline">
+                            <span id="toc-more-btn-text">もっと見る</span>
+                        </button>
+                    </div>
+                    <script src="https://ryoex.com/en/assets/js/components/blog-catalog-generate.js"></script>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 高亮下划线 -->
+                <span class="under-yellow"> 下划线高亮三种：under-yellow、under-yellow-2、under-yellow-3 </span>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 提示框 -->
+                <div class="ryoex-callout ryoex-callout-warning">
+                    <img src="https://ryoex.com/en/assets/image/error-icon.svg" alt="warning" />
+                    <p> 您的警告內容... </p>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 表格 -->
+                <div class="ryoex-table ryoex-table-blue ryoex-table-checklist">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="ryoex-th-item">チェック項目</th>
+                                <th class="ryoex-th-check">YES</th>
+                                <th class="ryoex-th-check">NO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ryoex-td-item">出来高が急増している</td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="volume" value="yes" class="ryoex-checkbox">
+                                </td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="volume" value="no" class="ryoex-checkbox">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ryoex-td-item">実体の大きいローソク足でブレイクしている</td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="breakout" value="yes" class="ryoex-checkbox">
+                                </td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="breakout" value="no" class="ryoex-checkbox">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ryoex-td-item">RSI・MACDにダイバージェンスがある</td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="divergence" value="yes" class="ryoex-checkbox">
+                                </td>
+                                <td class="ryoex-td-check">
+                                    <input type="radio" name="divergence" value="no" class="ryoex-checkbox">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-style5">
+                    <li>
+                        <div class="number">1.</div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="number">2.</div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-dot">
+                    <li>
+                        <div class="black-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="black-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-simple-list-wrap-2">
+                    <div class="title">标题</div>
+                    <ul class="ryoex-simple-list ryoex-simple-list-dot">
+                        <li>
+                            <div class="ryoex-simple-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ryoex-simple-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ryoex-simple-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 提示框 -->
+                <div class="ryoex-callout">
+                    <img src="https://ryoex.com/en/assets/image/note-icon.svg" alt="note" />
+                    <p> 您的筆記內容... </p>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 提示框 -->
+                <div class="ryoex-callout">
+                    <img src="https://ryoex.com/en/assets/image/tip-icon.svg" alt="tip" />
+                    <p> 您的提示內容... </p>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 提示框 -->
+                <div class="ryoex-callout">
+                    <img src="https://ryoex.com/en/assets/image/alert-icon.svg" alt="alert" />
+                    <p> 您的警告內容... </p>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 表格 -->
+                <div class="ryoex-feature-list">
+                    <!-- Header -->
+                    <div> 功能列表標題 </div>
+                    <ul>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-square">
+                    <li>
+                        <img class="icon" src="https://ryoex.com/en/assets/image/square-yes-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <img class="icon" src="https://ryoex.com/en/assets/image/square-yes-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-feature-list">
+                    <!-- Header -->
+                    <div> 功能列表標題 </div>
+                    <ul>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <svg class="icon-circle" fill="none" stroke="currentColor" stroke-width="3"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <p> 功能項目內容 </p>
+                                <p> 功能項目內容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-dot">
+                    <li>
+                        <div class="ryoex-simple-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ryoex-simple-dot">
+                        </div>
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-style3">
+                    <li>
+                        <img class="icon" src="https://ryoex.com/en/assets/image/round-yes-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <img class="icon" src="https://ryoex.com/en/assets/image/round-yes-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <ul class="ryoex-simple-list ryoex-simple-list-style4">
+                    <li>
+                        <img class="icon small" src="https://ryoex.com/en/assets/image/yes-blue-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                    <li>
+                        <img class="icon small" src="https://ryoex.com/en/assets/image/yes-blue-icon.svg" alt="">
+                        <div>
+                            <p> 列表项目内容 </p>
+                        </div>
+                    </li>
+                </ul>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- faq -->
+                <div class="ryoex-faq accordion-item">
+                    <!-- Question section -->
+                    <div class="faq-question">
+                        <span class="q-prefix">Q1.</span>
+                        <span class="accordion-question">
+                            您的問題？
+                        </span>
+                    </div>
+                    <!-- Answer section -->
+                    <div class="faq-answer">
+                        <span class="a-prefix">A1.</span>
+                        <div class="accordion-content">
+                            您的答案...
+                        </div>
+                    </div>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- faq -->
+                <div class="ryoex-faq-style2 accordion-item">
+                    <!-- Question section -->
+                    <div class="faq-question">
+                        <div class="q-icon">Q1</div>
+                        <div class="accordion-question">
+                            您的問題？
+                        </div>
+                    </div>
+                    <!-- Answer section -->
+                    <div class="faq-answer">
+                        <div class="a-icon">A1</div>
+                        <div class="accordion-content">
+                            您的答案內容...可以是不回答。
+                        </div>
+                    </div>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 表格 -->
+                <div class="ryoex-table ryoex-table-blue">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>列1</th>
+                                <th>列1</th>
+                                <th>列1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>数据</td>
+                                <td>数据</td>
+                                <td>数据</td>
+                            </tr>
+                            <tr>
+                                <td>数据</td>
+                                <td>数据</td>
+                                <td>数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 表格 -->
+                <div class="ryoex-table ryoex-table-dark">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>列1</th>
+                                <th>列2</th>
+                                <th>列3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>數據1</td>
+                                <td>數據2</td>
+                                <td>數據3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-list-border ryoex-list-border-style1">
+                    <!-- title -->
+                    <div> 列表带边框样式1 </div>
+                    <!-- content -->
+                    <ul>
+                        <li>
+                            <div class="dot">
+                            </div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dot">
+                            </div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dot">
+                            </div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-list-border ryoex-list-border-style3">
+                    <!-- title -->
+                    <div> 列表带边框样式3 </div>
+                    <!-- content -->
+                    <ul>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/error.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/error.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/error.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-list-border ryoex-list-border-style2">
+                    <!-- title -->
+                    <div> 列表带边框样式2 </div>
+                    <!-- content -->
+                    <ul>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/yes.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/yes.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon" src="https://ryoex.com/en/assets/image/yes.svg" alt="">
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-article-summary">
+                    <!-- title -->
+                    <div class="dark"> 這篇文章的重點 </div>
+                    <ul>
+                        <li>
+                            <span class="dot">
+                            </span>
+                            <div>
+                                <p>重點1</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="dot">
+                            </span>
+                            <div>
+                                <p>重點2</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="dot">
+                            </span>
+                            <div>
+                                <p>重點3</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-article-summary-light">
+                    <div class="light"> 這篇文章的重點 </div>
+                    <ul>
+                        <li>
+                            <span class="dot">
+                            </span>
+                            <div>
+                                <p>重點1</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="dot">
+                            </span>
+                            <div>
+                                <p>重點2</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 按钮 -->
+                <div class="ryoex-button-full">
+                    <div class="desc">
+                        最短<span class="ryoex-highlight-number">5</span>分で申込完了、取引開始も<span
+                            class="ryoex-highlight-number">即日</span>から
+                    </div>
+                    <a href="https://my.ryoex.com/register/trader/" target="_blank" rel="noopener"
+                        class="ryoex-btn-primary">
+                        <img src="https://ryoex.com/en/assets/image/ryoex-white-logo.svg" alt="RYOEX"
+                            class="ryoex-btn-icon" />
+                        RYOEXで口座を開設する（無料）
+                    </a>
+                    <a href="https://www.ryoex.com/ja/" class="ryoex-btn-link">
+                        RYOEX公式サイト
+                    </a>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 按钮 -->
+                <div class="ryoex-button-simple">
+                    <a href="#" class="ryoex-btn-primary">
+                        按鈕文字
+                    </a>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 文章 -->
+                <div class="ryoex-related-article">
+                    <!-- Top label -->
+                    <div class="ryoex-related-label-wrap">
+                        <div class="ryoex-related-label">
+                            <img src="https://ryoex.com/en/assets/image/book-icon.svg" alt=""
+                                class="ryoex-related-icon">
+                            <span class="ryoex-related-label-text"> あわせて読みたい </span>
+                        </div>
+                    </div>
+                    <!-- Content area -->
+                    <a href="文章链接" class="ryoex-related-body">
+                        <!-- Left image -->
+                        <div class="ryoex-related-image">
+                            <div class="ryoex-related-image-inner">
+                                <img src="https://ryoex.com/en/assets/image/ryoex-news-inside-one.png" alt=""
+                                    class="ryoex-related-img" />
+                            </div>
+                        </div>
+                        <!-- Right content -->
+                        <div class="ryoex-related-content">
+                            <!-- Article title -->
+                            <div class="ryoex-related-title"> エリオット波動とは？相場に繰り返される“波”の理論 </div>
+                            <!-- Article description -->
+                            <p class="ryoex-related-desc">
+                                エリオット波動を正しくカウントするには、「推進波」における3つの原則を守ることが不可欠です。これを無視すると、そもそも波形が成立しなくなり、後の分析が台無しになってしまいます
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-list-border ryoex-list-border-numbered">
+                    <!-- title -->
+                    <div> 列表带边框样式4 </div>
+                    <!-- content -->
+                    <ul>
+                        <li>
+                            <div class="num">1</div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="num">2</div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="num">3</div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="num">4</div>
+                            <div>
+                                <p> 列表项目内容 </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- 列表 -->
+                <div class="ryoex-simple-list-wrap">
+                    <ul class="ryoex-simple-list ryoex-simple-list-dot">
+                        <li>
+                            <div class="black-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="black-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="black-dot">
+                            </div>
+                            <div>
+                                <p>列表项目内容</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+            <div class="component-item">
+                <!-- faq -->
+                <div class="ryoex-faq-3 accordion-item">
+                    <div class="left">Q1.</div>
+                    <div class="right">
+                        <div class="accordion-question"> 您的問題？ </div>
+                        <div class="accordion-content">
+                            <p>您的答案...</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="copy-btn" type="button" onclick="copyComponentHtml(this)">复制</button>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">已复制</div>
+
+    <script>
+        function removeHtmlComments(rootEl) {
+            if (!rootEl) return;
+            var walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_COMMENT, null);
+            var nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+            for (var i = 0; i < nodes.length; i++) {
+                var n = nodes[i];
+                if (n && n.parentNode) n.parentNode.removeChild(n);
+            }
+        }
+
+        function getComponentHtml(buttonEl) {
+            var item = buttonEl.closest(".component-item");
+            if (!item) return "";
+            var clone = item.cloneNode(true);
+            var btn = clone.querySelector(".copy-btn");
+            if (btn) btn.remove();
+            removeHtmlComments(clone);
+            return clone.innerHTML.trim();
+        }
+
+        async function copyTextToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(text);
+                return;
+            }
+            var textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.left = "-9999px";
+            textarea.style.top = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+        function showCopyToast(msg) {
+            var toast = document.getElementById("copy-toast");
+            if (!toast) return;
+            toast.textContent = msg || "已复制";
+            toast.classList.add("show");
+            clearTimeout(window.__copyToastTimer);
+            window.__copyToastTimer = setTimeout(function () {
+                toast.classList.remove("show");
+            }, 1200);
+        }
+
+        async function copyComponentHtml(buttonEl) {
+            try {
+                var html = getComponentHtml(buttonEl);
+                if (!html) {
+                    showCopyToast("没有可复制内容");
+                    return;
+                }
+                await copyTextToClipboard(html);
+                showCopyToast("已复制 HTML");
+            } catch (e) {
+                showCopyToast("复制失败");
+            }
+        }
+    </script>
+</body>
+
+</html>
